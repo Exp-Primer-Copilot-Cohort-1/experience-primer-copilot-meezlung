@@ -1,64 +1,62 @@
 // Create a web server
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var path = require('path');
-var fs = require('fs');
-var comments = require('./comments.json');
+// 1. Create a web server
+// 2. Create a route for '/'
+// 3. Create a route for '/comments'
+// 4. Create a route for '/comments/new'
+// 5. Create a route for '/comments/:id'
+// 6. Create a route for '/comments/:id/edit'
+// 7. Create a route for '/comments/:id/delete'
+// 8. Create a route for '/comments/:id/flag'
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// 1. Create a web server
+const express = require('express');
+const app = express();
+const port = 3000;
 
-app.get('/comments.json', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(comments));
+// 2. Create a route for '/'
+app.get('/', (req, res) => {
+    res.send('Welcome to the comments app!');
 });
 
-app.post('/comments.json', function(req, res) {
-  comments.push(req.body);
-  fs.writeFile(
-    path.join(__dirname, 'comments.json'),
-    JSON.stringify(comments, null, 4),
-    function(err) {
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Cache-Control', 'no-cache');
-      res.send(JSON.stringify(comments));
-    }
-  );
+// 3. Create a route for '/comments'
+app.get('/comments', (req, res) => {
+    res.send('This is the comments page!');
 });
 
-app.listen(3000);
-console.log('Server started: http://localhost:3000/');
-
-javascript
-// Path: comments.js
-// Create a web server
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var path = require('path');
-var fs = require('fs');
-var comments = require('./comments.json');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/comments.json', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(comments));
+// 4. Create a route for '/comments/new'
+app.get('/comments/new', (req, res) => {
+    res.send('This is the new comments page!');
 });
 
-app.post('/comments.json', function(req, res) {
-  comments.push(req.body);
-  fs.writeFile(
-    path.join(__dirname, 'comments.json'),
-    JSON.stringify(comments, null, 4),
-    function(err) {
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Cache-Control', 'no-cache');
-      res.send(JSON.stringify(comments));
-    }
-  );
+// 5. Create a route for '/comments/:id'
+app.get('/comments/:id', (req, res) => {
+    res.send(`This is the comments page for comment id: ${req.params.id}`);
 });
 
-app.listen(3000);
+// 6. Create a route for '/comments/:id/edit'
+app.get('/comments/:id/edit', (req, res) => {
+    res.send(`This is the comments edit page for comment id: ${req.params.id}`);
+});
+
+// 7. Create a route for '/comments/:id/delete'
+app.get('/comments/:id/delete', (req, res) => {
+    res.send(`This is the comments delete page for comment id: ${req.params.id}`);
+});
+
+// 8. Create a route for '/comments/:id/flag'
+app.get('/comments/:id/flag', (req, res) => {
+    res.send(`This is the comments flag page for comment id: ${req.params.id}`);
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+// Run the server and test the routes in the browser
+
+// Start the server with the following command:
+// node comments.js
+
+// Open a browser and test the routes:
+// http://localhost:3000/
+// http://localhost:3000/comments
+// http://localhost:300
